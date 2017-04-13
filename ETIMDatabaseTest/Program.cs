@@ -18,26 +18,10 @@ namespace ETIMDatabaseTest
 
         static void Main(string[] args)
         {
-            //var serializer = new XmlSerializer(typeof(IXFType));
-
-            //using (var fs = new FileStream(xmlPath, FileMode.Open))
-            //{
-            //    var ixf = (IXFType)serializer.Deserialize(fs);
-            //    var featureTranslations = ixf.Features.Where(f => f.Translations.Any(feat => feat.Description.Contains("LED"))).ToList();
-            //}
-
-            //var bmecatns = "http://www.etim-international.com/bmecat/31";
-            //var legrande = @"C:\Users\Alexander Derck\Downloads\Etiml product lists/20160122_LegrandBelgiumBMEcat_v22_ETIM6.xml";
-            //var unibright = @"C:\Users\Alexander Derck\Downloads\Etiml product lists/Unibright_2016-12-12.xml";
-            //var serializer = new XmlSerializer(typeof(BMECAT), bmecatns);
-
-            //using(var fs = new FileStream(unibright, FileMode.Open))
-            //{
-            //    var bmecat = (BMECAT)serializer.Deserialize(fs);
-            //}
-
             using (var ctx = new EtimDB())
             {
+                var test = ctx.Classes.Where(c => c.Translations.Where(t => t.Language == Language.Dutch && !t.IsSynonym).Any(t => t.Description.Contains("LED")))
+                    .Select(c => c.Translations.FirstOrDefault(t => !t.IsSynonym && t.Language == Language.Dutch).Description).ToList();
             }
         }
     }

@@ -4,60 +4,67 @@ namespace ETIMDatabase
     using System.Data.Entity;
     using System.Linq;
     using ETIMDatabase.Entities;
+    using System.Data.Entity.ModelConfiguration.Conventions;
 
     public class EtimDB : DbContext
     {
         public EtimDB() : base("name=EtimDB")
         {
-            Database.SetInitializer(new DropCreateDatabaseAlways<EtimDB>());
+            Database.SetInitializer(new ETIM6XmlInitializer(@"C:\Users\Alexander Derck\Downloads\ETIM standard\etim 6 - international - e - ixf - endenl\Etim6.xml"));
         }
 
-        public virtual DbSet<Class> Classes { get; set; }
-        public virtual DbSet<Feature> Features { get; set; }
-        public virtual DbSet<Group> Groups { get; set; }
-        public virtual DbSet<Unit> Units { get; set; }
-        public virtual DbSet<Value> Values { get; set; }
+        public virtual DbSet<EtimClass> Classes { get; set; }
+        public virtual DbSet<EtimFeature> Features { get; set; }
+        public virtual DbSet<EtimGroup> Groups { get; set; }
+        public virtual DbSet<EtimUnit> Units { get; set; }
+        public virtual DbSet<EtimValue> Values { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Group>()
+            modelBuilder.Conventions.Remove<PluralizingTableNameConvention>();
+
+            modelBuilder.Entity<EtimGroup>()
                 .HasMany(m => m.Translations)
                 .WithRequired(m => m.Group)
                 .HasForeignKey(m => m.GroupCode);
-            modelBuilder.Entity<Group>()
+            modelBuilder.Entity<EtimGroup>()
                 .HasMany(m => m.Classes)
                 .WithRequired(m => m.Group)
                 .HasForeignKey(m => m.GroupCode);
 
-            modelBuilder.Entity<Class>()
+            modelBuilder.Entity<EtimClass>()
                 .HasMany(m => m.Translations)
                 .WithRequired(m => m.Class)
                 .HasForeignKey(m => m.ClassCode);
 
-            modelBuilder.Entity<ClassFeature>()
+            modelBuilder.Entity<EtimClassFeature>()
                 .HasRequired(m => m.Class)
-                .WithMany()
+                .WithMany(m => m.ClassFeatures)
                 .HasForeignKey(m => m.ClassCode);
-            modelBuilder.Entity<ClassFeature>()
+            modelBuilder.Entity<EtimClassFeature>()
                 .HasRequired(m => m.Feature)
                 .WithMany()
                 .HasForeignKey(m => m.FeatureCode);
-            modelBuilder.Entity<ClassFeature>()
+            modelBuilder.Entity<EtimClassFeature>()
                 .HasMany(m => m.FeatureValues)
                 .WithRequired(m => m.ClassFeature)
                 .HasForeignKey(m => m.ClassFeatureID);
+            modelBuilder.Entity<EtimClassFeature>()
+                .HasOptional(m => m.Unit)
+                .WithMany()
+                .HasForeignKey(m => m.UnitCode);
 
-            modelBuilder.Entity<ClassFeatureValue>()
+            modelBuilder.Entity<EtimClassFeatureValue>()
                 .HasRequired(m => m.Value)
                 .WithMany()
                 .HasForeignKey(m => m.ValueCode);
 
-            modelBuilder.Entity<Value>()
+            modelBuilder.Entity<EtimValue>()
                 .HasMany(m => m.Translations)
                 .WithRequired(m => m.Value)
                 .HasForeignKey(m => m.ValueCode);
 
-            modelBuilder.Entity<Unit>()
+            modelBuilder.Entity<EtimUnit>()
                 .HasMany(m => m.Translations)
                 .WithRequired(m => m.Unit)
                 .HasForeignKey(m => m.UnitCode);

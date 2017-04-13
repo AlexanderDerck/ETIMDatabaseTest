@@ -7,11 +7,11 @@ using System.Threading.Tasks;
 
 namespace ETIMDatabase.Entities
 {
-    public class Value
+    public class EtimValue
     {
         [Key]
         public int Code { get; set; }
 
-        public virtual ICollection<ValueTranslation> Translations { get; set; }
+        public virtual ICollection<EtimValueTranslation> Translations { get; set; }
     }
 }

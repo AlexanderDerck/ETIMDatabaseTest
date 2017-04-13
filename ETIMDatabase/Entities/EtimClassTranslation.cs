@@ -5,11 +5,20 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using EtimIXF;
 
 namespace ETIMDatabase.Entities
 {
-    public class ClassTranslation
+    public class EtimClassTranslation
     {
+        public EtimClassTranslation() { }
+        public EtimClassTranslation(string description, string language, bool isSynonym)
+        {
+            Description = description;
+            Language = language.GetLanguage();
+            IsSynonym = isSynonym;
+        }
+
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ID { get; set; }
         public int ClassCode { get; set; }
@@ -17,6 +26,6 @@ namespace ETIMDatabase.Entities
         public string Description { get; set; }
         public bool IsSynonym { get; set; }
 
-        public virtual Class Class { get; set; }
+        public virtual EtimClass Class { get; set; }
     }
 }

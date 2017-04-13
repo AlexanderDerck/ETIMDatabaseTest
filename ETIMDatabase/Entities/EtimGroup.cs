@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ETIMDatabase.Entities
 {
-    public class Group
+    public class EtimGroup
     {
         [Key]
         public int Code { get; set; }
 
-        public virtual ICollection<Class> Classes { get; set; }
-        public virtual ICollection<GroupTranslation> Translations { get; set; }
+        public virtual ICollection<EtimClass> Classes { get; set; }
+        public virtual ICollection<EtimGroupTranslation> Translations { get; set; }
     }
 }

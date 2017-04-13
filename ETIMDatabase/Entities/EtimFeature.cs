@@ -7,12 +7,12 @@ using System.Threading.Tasks;
 
 namespace ETIMDatabase.Entities
 {
-    public class Feature
+    public class EtimFeature
     {
         [Key]
         public int Code { get; set; }
         public FeatureType Type { get; set; }
 
-        public virtual ICollection<FeatureTranslation> Translations { get; set; }
+        public virtual ICollection<EtimFeatureTranslation> Translations { get; set; }
     }
 }

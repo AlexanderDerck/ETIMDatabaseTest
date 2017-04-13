@@ -12,6 +12,7 @@ namespace ETIMDatabase
         Dutch = 0,
         French = 1,
         English = 2,
+        German = 3,
     }
 
     public enum ClassStatusType : byte
