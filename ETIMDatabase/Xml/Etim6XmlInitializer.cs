@@ -13,7 +13,7 @@ namespace ETIMDatabase
 {
     internal class ETIM6XmlInitializer : DropCreateDatabaseIfModelChanges<EtimDB>
     {
-        private string etimXmlPath;
+        private readonly string etimXmlPath;
 
         public ETIM6XmlInitializer(string etimXmlPath)
         {
