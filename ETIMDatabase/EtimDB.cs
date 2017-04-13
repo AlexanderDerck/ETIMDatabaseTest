@@ -61,8 +61,5 @@ namespace ETIMDatabase
         }
     }
 
-    internal class EtimDBInitializer : DropCreateDatabaseAlways<EtimDB>
-    {
-
-    }
+    internal class EtimDBInitializer : DropCreateDatabaseAlways<EtimDB> { }
 }
