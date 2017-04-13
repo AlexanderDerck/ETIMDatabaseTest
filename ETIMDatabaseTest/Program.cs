@@ -6,6 +6,8 @@ using System.Xml.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using ETIMDatabase;
+using ETIMDatabase.Entities;
 
 namespace ETIMDatabaseTest
 {
@@ -24,14 +26,18 @@ namespace ETIMDatabaseTest
             //    var featureTranslations = ixf.Features.Where(f => f.Translations.Any(feat => feat.Description.Contains("LED"))).ToList();
             //}
 
-            var bmecatns = "http://www.etim-international.com/bmecat/31";
-            var legrande = @"C:\Users\Alexander Derck\Downloads\Etiml product lists/20160122_LegrandBelgiumBMEcat_v22_ETIM6.xml";
-            var unibright = @"C:\Users\Alexander Derck\Downloads\Etiml product lists/Unibright_2016-12-12.xml";
-            var serializer = new XmlSerializer(typeof(BMECAT), bmecatns);
+            //var bmecatns = "http://www.etim-international.com/bmecat/31";
+            //var legrande = @"C:\Users\Alexander Derck\Downloads\Etiml product lists/20160122_LegrandBelgiumBMEcat_v22_ETIM6.xml";
+            //var unibright = @"C:\Users\Alexander Derck\Downloads\Etiml product lists/Unibright_2016-12-12.xml";
+            //var serializer = new XmlSerializer(typeof(BMECAT), bmecatns);
 
-            using(var fs = new FileStream(unibright, FileMode.Open))
+            //using(var fs = new FileStream(unibright, FileMode.Open))
+            //{
+            //    var bmecat = (BMECAT)serializer.Deserialize(fs);
+            //}
+
+            using (var ctx = new EtimDB())
             {
-                var bmecat = (BMECAT)serializer.Deserialize(fs);
             }
         }
     }

@@ -9,9 +9,14 @@ namespace ETIMDatabase
     {
         public EtimDB() : base("name=EtimDB")
         {
-            Database.SetInitializer(new EtimDBInitializer());
+            Database.SetInitializer(new DropCreateDatabaseAlways<EtimDB>());
         }
 
+        public virtual DbSet<Class> Classes { get; set; }
+        public virtual DbSet<Feature> Features { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<Unit> Units { get; set; }
+        public virtual DbSet<Value> Values { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -60,6 +65,4 @@ namespace ETIMDatabase
             base.OnModelCreating(modelBuilder);
         }
     }
-
-    internal class EtimDBInitializer : DropCreateDatabaseAlways<EtimDB> { }
 }
